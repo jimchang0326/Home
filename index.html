@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>張鈞淳</title>
+
+    <link rel="stylesheet" href="home.css.css"> <!-- 引用 CSS 文件 -->
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item center-box">
+            <div class="box-text">
+                [<span class="toggle-arrow" id="cameraLeftToggle">&gt;</span>] Camera Left
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <div class="trackbar-container" id="cameraLeftTrackbar">
+                    <input type="range" min="0" max="16" value="0" class="trackbar" id="cameraLeftTrackbarInput">
+                </div>
+
+                <div class="box-text2" id="cameraFar">
+                    [<span class="toggle-arrow" id="cameraFarToggle">&gt;</span>] Camera Far
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="trackbar-container" id="cameraFarTrackbar">
+                        <input type="range" min="0" max="30" value="0" class="trackbar" id="cameraFarTrackbarInput">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item center-box">
+            <div class="box-text">
+                [•] Sniper Scope
+                <label class="switch">
+                    <input type="checkbox"  id="sniperScopeSwitch">
+                    <span class="slider"></span>
+                </label>
+                <div class="box-text2">
+                    [•] Sniper Switch
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="box-text3">
+                        [•] Glitch Fire
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <div class="box-text4">
+                            [•] Delay Fix
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="box-text5">
+                                [•] Ultimate Switch
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item center-box">
+            <div class="box-text">
+                [•] Speed Time V2
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <div class="box-text2">
+                    [•] Wallhack V3
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item center-box">
+            <div class="box-text">一些設定...</div>
+        </div>
+    </div>
+    <div class="footer-bar">
+        <span class="footer-text">張鈞淳 PANEL</span>
+    </div>
+
+    <script>
+        // 禁用右鍵選單
+        document.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+        });
+        // 事件偵測
+        document.addEventListener("DOMContentLoaded", function () {
+            const cameraLeftToggle = document.querySelector("#cameraLeftToggle");
+            const cameraFarToggle = document.querySelector("#cameraFarToggle");
+            const cameraFarText = document.querySelector("#cameraFar");
+            const cameraLeftTrackbar = document.querySelector("#cameraLeftTrackbar");
+            const cameraFarTrackbar = document.querySelector("#cameraFarTrackbar");
+
+            let rotatedLeft = false;
+            cameraLeftToggle.addEventListener("click", function () {
+                rotatedLeft = !rotatedLeft;
+                if (rotatedLeft) {
+                    cameraLeftToggle.classList.add("rotate");
+                    cameraFarText.classList.add("move-down");
+                    cameraLeftTrackbar.style.display = "block";
+                    cameraLeftTrackbar.style.animation = "fadeInSlideDown 0.5s ease forwards"; // 添加动画
+                } else {
+                    cameraLeftToggle.classList.remove("rotate");
+                    cameraFarText.classList.remove("move-down");
+                    cameraLeftTrackbar.style.display = "none";
+                }
+            });
+
+            let rotatedFar = false;
+            cameraFarToggle.addEventListener("click", function () {
+                rotatedFar = !rotatedFar;
+                if (rotatedFar) {
+                    cameraFarToggle.classList.add("rotate");
+                    cameraFarTrackbar.style.display = "block";
+                    cameraFarTrackbar.style.animation = "fadeInSlideDown 0.5s ease forwards"; // 添加动画
+                } else {
+                    cameraFarToggle.classList.remove("rotate");
+                    cameraFarTrackbar.style.display = "none";
+                }
+            });
+
+            const sniperScopeSwitch = document.querySelector("#sniperScopeSwitch");
+            sniperScopeSwitch.addEventListener("change", function () {
+                window.chrome.webview.postMessage({ action: "toggleSniperScope", isChecked: sniperScopeSwitch.checked });
+            });
+        });
+    </script>
+</body>
+</html>
